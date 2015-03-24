@@ -4,6 +4,8 @@ node_js:
   - "0.10"
   - "0.8"
   - "iojs"
+before_install:
+  - "npm install -g npm@1.4.x"
 script:
   - "npm run test-travis"
 after_script:
