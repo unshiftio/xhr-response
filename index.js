@@ -10,6 +10,8 @@
 module.exports = function get(xhr) {
   if (xhr.response) return xhr.response;
 
+  var type = xhr.responseType || '';
+
   //
   // Browser bugs:
   //
@@ -21,8 +23,8 @@ module.exports = function get(xhr) {
   //          when responseType is using a `moz-chunked-*` type.
   //          https://bugzilla.mozilla.org/show_bug.cgi?id=687087
   //
-  if (~xhr.responseType.indexOf('moz-chunked') && xhr.readyState === 4) return;
-  if ('blob' !== xhr.responseType && 'string' === typeof xhr.responseText) {
+  if (~type.indexOf('moz-chunked') && xhr.readyState === 4) return;
+  if ('blob' !== type && 'string' === typeof xhr.responseText) {
     return xhr.responseText || xhr.responseXML;
   }
 };

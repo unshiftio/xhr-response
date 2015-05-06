@@ -26,6 +26,32 @@ describe('xhr-response', function () {
     assume(wat).is.a('undefined');
   });
 
+  it('does not access the `responseText` during load for moz-chunked-* calls', function () {
+    var wat = response({
+      responseText: 'lol',
+      responseType: 'moz-chunked-text',
+      readyState: 4
+    });
+
+    assume(wat).is.a('undefined');
+
+    wat = response({
+      responseText: 'lol',
+      responseType: 'moz-chunked-text',
+      readyState: 3
+    });
+
+    assume(wat).equals('lol');
+
+    wat = response({
+      responseText: 'lol',
+      responseType: 'moz-chunked-arraybuffer',
+      readyState: 4
+    });
+
+    assume(wat).is.a('undefined');
+  });
+
   it('returns the responseXML if there is no text', function () {
     var wat = response({
       responseText: '',
