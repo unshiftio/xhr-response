@@ -17,6 +17,11 @@ module.exports = function get(xhr) {
   // Chrome:  When responseType is set to Blob it will throw errors even when
   //          Accessing the responseText property.
   //
+  // Firefox: An error is thrown when reading the `responseText` after unload
+  //          when responseType is using a `moz-chunked-*` type.
+  //          https://bugzilla.mozilla.org/show_bug.cgi?id=687087
+  //
+  if (~xhr.responseType.indexOf('moz-chunked') && xhr.readyState === 4) return;
   if ('blob' !== xhr.responseType && 'string' === typeof xhr.responseText) {
     return xhr.responseText || xhr.responseXML;
   }
