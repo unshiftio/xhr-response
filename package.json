@@ -1,6 +1,6 @@
 {
   "name": "xhr-response",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Safely extract the XHR response from your XHR instance.",
   "main": "index.js",
   "scripts": {
